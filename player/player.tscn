@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://ba3727trfv2ib"]
+[gd_scene load_steps=11 format=3 uid="uid://ba3727trfv2ib"]
 
 [ext_resource type="Texture2D" uid="uid://bei7x67psb4c4" path="res://Assets_PixelAdventure/Main Characters/Mask Dude.png" id="1_18yh5"]
 [ext_resource type="Script" path="res://player/player.gd" id="1_c8b3n"]
+[ext_resource type="Script" path="res://player/camera_2d.gd" id="3_eusd7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qpl80"]
 size = Vector2(21, 21)
@@ -117,3 +118,6 @@ shape = SubResource("RectangleShape2D_qpl80")
 libraries = {
 "": SubResource("AnimationLibrary_5bekm")
 }
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("3_eusd7")
