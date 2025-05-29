@@ -1,10 +1,44 @@
-[gd_scene load_steps=10 format=3 uid="uid://ba3727trfv2ib"]
+[gd_scene load_steps=12 format=3 uid="uid://ba3727trfv2ib"]
 
 [ext_resource type="Texture2D" uid="uid://bei7x67psb4c4" path="res://Assets_PixelAdventure/Main Characters/Mask Dude.png" id="1_18yh5"]
 [ext_resource type="Script" path="res://player/player.gd" id="1_c8b3n"]
+[ext_resource type="Script" path="res://player/camera_2d.gd" id="3_eusd7"]
+[ext_resource type="LabelSettings" uid="uid://e5hyp2dcpo68" path="res://player/GUIText.tres" id="4_7nxkv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qpl80"]
 size = Vector2(21, 21)
+
+[sub_resource type="Animation" id="Animation_xqt78"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_fl63m"]
+resource_name = "fall"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [24]
+}
 
 [sub_resource type="Animation" id="Animation_x00df"]
 resource_name = "idle"
@@ -24,8 +58,10 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 }
 
-[sub_resource type="Animation" id="Animation_xqt78"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_ne4ir"]
+resource_name = "jump"
+length = 0.1
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -36,7 +72,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [23]
 }
 
 [sub_resource type="Animation" id="Animation_j5qbg"]
@@ -55,40 +91,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]
-}
-
-[sub_resource type="Animation" id="Animation_ne4ir"]
-resource_name = "jump"
-length = 0.1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [23]
-}
-
-[sub_resource type="Animation" id="Animation_fl63m"]
-resource_name = "fall"
-length = 0.1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [24]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5bekm"]
@@ -117,3 +119,22 @@ shape = SubResource("RectangleShape2D_qpl80")
 libraries = {
 "": SubResource("AnimationLibrary_5bekm")
 }
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("3_eusd7")
+
+[node name="PlayerGUI" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerGUI"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FrutasLabel2" type="Label" parent="PlayerGUI/HBoxContainer"]
+texture_filter = 2
+layout_mode = 2
+text = "Fruits:"
+label_settings = ExtResource("4_7nxkv")
+
+[node name="FrutasLabel" type="Label" parent="PlayerGUI/HBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("4_7nxkv")
