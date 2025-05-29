@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://cx14fg7lnwm8c"]
+[gd_scene load_steps=11 format=4 uid="uid://cx14fg7lnwm8c"]
 
 [ext_resource type="PackedScene" uid="uid://ba3727trfv2ib" path="res://player/player.tscn" id="1_yu1f7"]
 [ext_resource type="Texture2D" uid="uid://cbmb5cipyhb2u" path="res://Assets_PixelAdventure/Terrain/Terrain (16x16).png" id="2_45qmj"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cqgs3aseyvj8m" path="res://Assets_PixelAdventure/Parallax/parallax-02.png" id="5_gnnfb"]
 [ext_resource type="Texture2D" uid="uid://cvngflsps17db" path="res://Assets_PixelAdventure/Parallax/parallax-03.png" id="6_pbpwt"]
 [ext_resource type="Texture2D" uid="uid://owlwdggvbxt3" path="res://Assets_PixelAdventure/Parallax/parallax-04.png" id="7_jr8yc"]
+[ext_resource type="PackedScene" uid="uid://dxc3msydvlok0" path="res://collectibles/fruta.tscn" id="8_6swyp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0y4vw"]
 texture = ExtResource("2_45qmj")
@@ -151,3 +152,21 @@ motion_mirroring = Vector2(1008, 0)
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5"]
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("7_jr8yc")
+
+[node name="Fruta" parent="." instance=ExtResource("8_6swyp")]
+position = Vector2(318, 112)
+
+[node name="Fruta2" parent="." instance=ExtResource("8_6swyp")]
+position = Vector2(341, 113)
+
+[node name="Fruta3" parent="." instance=ExtResource("8_6swyp")]
+position = Vector2(366, 114)
+
+[node name="Fruta4" parent="." instance=ExtResource("8_6swyp")]
+position = Vector2(394, 115)
+
+[node name="Fruta5" parent="." instance=ExtResource("8_6swyp")]
+position = Vector2(419, 115)
+
+[node name="Fruta6" parent="." instance=ExtResource("8_6swyp")]
+position = Vector2(441, 115)
