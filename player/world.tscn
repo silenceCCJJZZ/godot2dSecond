@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://cx14fg7lnwm8c"]
+[gd_scene load_steps=12 format=4 uid="uid://cx14fg7lnwm8c"]
 
 [ext_resource type="PackedScene" uid="uid://ba3727trfv2ib" path="res://player/player.tscn" id="1_yu1f7"]
 [ext_resource type="Texture2D" uid="uid://cbmb5cipyhb2u" path="res://Assets_PixelAdventure/Terrain/Terrain (16x16).png" id="2_45qmj"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cvngflsps17db" path="res://Assets_PixelAdventure/Parallax/parallax-03.png" id="6_pbpwt"]
 [ext_resource type="Texture2D" uid="uid://owlwdggvbxt3" path="res://Assets_PixelAdventure/Parallax/parallax-04.png" id="7_jr8yc"]
 [ext_resource type="PackedScene" uid="uid://dxc3msydvlok0" path="res://collectibles/fruta.tscn" id="8_6swyp"]
+[ext_resource type="PackedScene" uid="uid://cifgo8jqyqlmg" path="res://Person/EnemyPig/enemy_pig.tscn" id="9_qrvnk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0y4vw"]
 texture = ExtResource("2_45qmj")
@@ -103,7 +104,7 @@ sources/1 = SubResource("TileSetAtlasSource_0y4vw")
 [node name="World" type="Node"]
 
 [node name="player" parent="." instance=ExtResource("1_yu1f7")]
-position = Vector2(117, 84)
+position = Vector2(890, 91)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 position = Vector2(-38, -18)
@@ -170,3 +171,6 @@ position = Vector2(419, 115)
 
 [node name="Fruta6" parent="." instance=ExtResource("8_6swyp")]
 position = Vector2(441, 115)
+
+[node name="EnemyPig" parent="." instance=ExtResource("9_qrvnk")]
+position = Vector2(1006, 78)

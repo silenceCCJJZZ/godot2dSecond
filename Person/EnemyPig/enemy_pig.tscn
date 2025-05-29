@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://cifgo8jqyqlmg"]
+
+[ext_resource type="PackedScene" uid="uid://dy58hkt2h5meb" path="res://Person/person.tscn" id="1_b4b60"]
+[ext_resource type="Script" path="res://Person/EnemyPig/enemy_pig.gd" id="2_vs1w0"]
+[ext_resource type="Texture2D" uid="uid://qh4778c8molj" path="res://Assets_PixelAdventure/Enemies/AngryPig/angryPig.png" id="3_qemkb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3ruq"]
+size = Vector2(21, 25)
+
+[node name="EnemyPig" groups=["Enemies"] instance=ExtResource("1_b4b60")]
+script = ExtResource("2_vs1w0")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("3_qemkb")
+hframes = 9
+vframes = 6
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0.5, 2.5)
+shape = SubResource("RectangleShape2D_q3ruq")
+
+[node name="RayCast" type="Node2D" parent="." index="3"]
+
+[node name="RayCastGround" type="RayCast2D" parent="RayCast" index="0"]
+target_position = Vector2(0, 20)
+
+[node name="RayCastWall" type="RayCast2D" parent="RayCast" index="1"]
+target_position = Vector2(-20, 0)
+
+[node name="RayTimer" type="Timer" parent="RayCast" index="2"]
+
+[node name="RayCastPlayerDirection" type="RayCast2D" parent="." index="4"]
+target_position = Vector2(-50, 0)
+
+[connection signal="timeout" from="RayCast/RayTimer" to="." method="_on_ray_timer_timeout"]
