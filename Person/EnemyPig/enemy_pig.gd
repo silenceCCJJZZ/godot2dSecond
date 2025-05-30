@@ -75,9 +75,9 @@ func _process(delta: float) -> void:
 #被攻击计算血量
 func takeDmg(damage):
 	#计算血量
-	blood = blood-damage
+	vita = vita-damage
 	#死亡
-	if blood<=0:
+	if vita<=0:
 		statusCurrent = status.DYING
 		#人物碰撞死亡，排除跳跃接触导致死亡
 		dmg_collision_shape.set_deferred("disabled",true)
@@ -96,5 +96,5 @@ func _on_ray_timer_timeout() -> void:
 #碰撞怪物会导致死亡
 func _on_dmg_player_body_entered(body: Node2D) -> void:
 	if body is Player:
-		body.takeDamage()
+		body.takeDamage(dmg)
 	pass # Replace with function body.

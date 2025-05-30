@@ -1,6 +1,11 @@
 extends CharacterBody2D
 class_name Player
 
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var sprite: Sprite2D = $Sprite2D
+@onready var frutas_label: Label = $PlayerGUI/HBoxContainer/FrutasLabel
+@onready var raycast_dmg: Node2D = $RaycastDmg
+
 var speed :int=120
 var direction :=0.0
 var jump :=250
@@ -8,18 +13,29 @@ const gravity :=9
 #攻击伤害
 var damage = 1
 
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var sprite: Sprite2D = $Sprite2D
-@onready var frutas_label: Label = $PlayerGUI/HBoxContainer/FrutasLabel
-@onready var raycast_dmg: Node2D = $RaycastDmg
+#两个状态，正常、受伤
+enum status {NORMAL,INJURED}
+var statusCurrent = status.NORMAL
 
-
+#hp
+var vita := 10 :
+	set(val):
+		vita =val
+		$PlayerGUI/HpProgressBar.value=vita
 
 func _ready() -> void:
+	#初始化血量
+	$PlayerGUI/HpProgressBar.value = vita
+	#全局
 	Global.player = self
 
 
 func _physics_process(delta: float) -> void:
+	if statusCurrent == status.NORMAL:
+		processNormal(delta)
+	
+#玩家正常状态
+func processNormal(delta: float) -> void:
 	direction = Input.get_axis("ui_left","ui_right")
 	velocity.x = direction * speed
 	
@@ -54,15 +70,34 @@ func _process(delta: float) -> void:
 					
 			
 			
-			
-func takeDamage():
-	die()
+#受伤			
+func takeDamage(dmg):
+	#只有没受伤状态可以掉血
+	if statusCurrent !=status.INJURED:
+		#计算血量
+		vita = vita-dmg
+		animation_player.play("injured")
+		$ClodDownTimer.start()
+		statusCurrent = status.INJURED
+		print(vita)
+		if vita<=0:
+			die()
 	
-#死亡重新加载
+#死亡重新加载，避免一个警告
 func die():
+	#get_tree().reload_current_scene()
+	call_deferred("reload_scene")	
+	
+#回到开始地点	
+func reload_scene():
 	get_tree().reload_current_scene()
 				
 			
 #标签文字展示	
 func actualizaInterfazFrutas():
 	frutas_label.text = str(Global.frutas)
+
+
+#受伤状态恢复到正常
+func _on_clod_down_timer_timeout() -> void:
+	statusCurrent =status.NORMAL

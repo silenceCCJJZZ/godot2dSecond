@@ -11,6 +11,8 @@ size = Vector2(21, 25)
 size = Vector2(24, 24)
 
 [node name="EnemyPig" groups=["Enemies"] instance=ExtResource("1_b4b60")]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("2_vs1w0")
 
 [node name="Sprite2D" parent="." index="0"]
@@ -26,9 +28,11 @@ shape = SubResource("RectangleShape2D_q3ruq")
 
 [node name="RayCastGround" type="RayCast2D" parent="RayCast" index="0"]
 target_position = Vector2(0, 20)
+collision_mask = 4
 
 [node name="RayCastWall" type="RayCast2D" parent="RayCast" index="1"]
 target_position = Vector2(-20, 0)
+collision_mask = 4
 
 [node name="RayTimer" type="Timer" parent="RayCast" index="2"]
 
@@ -36,6 +40,7 @@ target_position = Vector2(-20, 0)
 target_position = Vector2(-50, 0)
 
 [node name="DmgPlayer" type="Area2D" parent="." index="5"]
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DmgPlayer" index="0"]
 position = Vector2(1, 1)
