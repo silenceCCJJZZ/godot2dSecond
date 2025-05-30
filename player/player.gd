@@ -5,9 +5,13 @@ var speed :int=120
 var direction :=0.0
 var jump :=250
 const gravity :=9
+#攻击伤害
+var damage = 1
+
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var frutas_label: Label = $PlayerGUI/HBoxContainer/FrutasLabel
+@onready var raycast_dmg: Node2D = $RaycastDmg
 
 
 
@@ -39,7 +43,26 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 	
-
+func _process(delta: float) -> void:
+	#被射线检测到，在敌人组中，跳跃（碰撞检测）移除敌人
+	for ray in raycast_dmg.get_children():
+		if ray.is_colliding():
+			var collision = ray.get_collider()
+			if collision.is_in_group("Enemies"):
+				if collision.has_method("takeDmg"):
+					collision.takeDmg(damage)
+					
+			
+			
+			
+func takeDamage():
+	die()
 	
+#死亡重新加载
+func die():
+	get_tree().reload_current_scene()
+				
+			
+#标签文字展示	
 func actualizaInterfazFrutas():
 	frutas_label.text = str(Global.frutas)

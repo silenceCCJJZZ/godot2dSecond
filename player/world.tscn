@@ -104,7 +104,7 @@ sources/1 = SubResource("TileSetAtlasSource_0y4vw")
 [node name="World" type="Node"]
 
 [node name="player" parent="." instance=ExtResource("1_yu1f7")]
-position = Vector2(890, 91)
+position = Vector2(709, 76)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 position = Vector2(-38, -18)
@@ -174,3 +174,6 @@ position = Vector2(441, 115)
 
 [node name="EnemyPig" parent="." instance=ExtResource("9_qrvnk")]
 position = Vector2(1006, 78)
+
+[node name="EnemyPig2" parent="." instance=ExtResource("9_qrvnk")]
+position = Vector2(777, 109)

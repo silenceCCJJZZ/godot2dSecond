@@ -7,13 +7,16 @@ extends Person
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var ray_cast_player_direction: RayCast2D = $RayCastPlayerDirection
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var dmg_collision_shape: CollisionShape2D = $DmgPlayer/CollisionShape2D
+
 
 var direction = -1
 var canChangeDirection = true  # 是否可以改变方向的标志，初始为 True
 var player
 
-#生气和巡逻状态
-enum status {ANGRY,PATROLS}
+#生气、巡逻、垂死状态
+enum status {ANGRY,PATROLS,DYING}
 var statusCurrent = status.PATROLS
 
 
@@ -47,6 +50,13 @@ func _process(delta: float) -> void:
 			direction =-1
 		elif directionPlayer.x >0:
 			direction = 1
+			
+		#改变方向就翻转
+		if direction==1:
+			sprite.flip_h = true
+		else:
+			sprite.flip_h = false	
+			
 	
 	if statusCurrent == status.PATROLS:
 		#检测碰撞翻转方向 碰到墙或者地面为空时改变方向
@@ -55,17 +65,36 @@ func _process(delta: float) -> void:
 			ray_timer.start()
 			direction *= -1
 			ray_cast.scale.x *=-1
-			
-	#改变方向就翻转
-	if direction==1:
-		sprite.flip_h = true
-	else:
-		sprite.flip_h = false
-	
-	
+				
+		#改变方向就翻转
+		if direction==1:
+			sprite.flip_h = true
+		else:
+			sprite.flip_h = false
+
+#被攻击计算血量
+func takeDmg(damage):
+	#计算血量
+	blood = blood-damage
+	#死亡
+	if blood<=0:
+		statusCurrent = status.DYING
+		#人物碰撞死亡，排除跳跃接触导致死亡
+		dmg_collision_shape.set_deferred("disabled",true)
+		animation_player.play("hurt")
+		#敌人被击败时禁用碰撞(延迟禁用)
+		collision_shape.set_deferred("disabled",true)
+		await(animation_player.animation_finished)
+		queue_free()
 		
 		
 		
 func _on_ray_timer_timeout() -> void:
 	canChangeDirection = true
+	pass # Replace with function body.
+
+#碰撞怪物会导致死亡
+func _on_dmg_player_body_entered(body: Node2D) -> void:
+	if body is Player:
+		body.takeDamage()
 	pass # Replace with function body.

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cifgo8jqyqlmg"]
+[gd_scene load_steps=6 format=3 uid="uid://cifgo8jqyqlmg"]
 
 [ext_resource type="PackedScene" uid="uid://dy58hkt2h5meb" path="res://Person/person.tscn" id="1_b4b60"]
 [ext_resource type="Script" path="res://Person/EnemyPig/enemy_pig.gd" id="2_vs1w0"]
@@ -6,6 +6,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q3ruq"]
 size = Vector2(21, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o1jkv"]
+size = Vector2(24, 24)
 
 [node name="EnemyPig" groups=["Enemies"] instance=ExtResource("1_b4b60")]
 script = ExtResource("2_vs1w0")
@@ -32,4 +35,11 @@ target_position = Vector2(-20, 0)
 [node name="RayCastPlayerDirection" type="RayCast2D" parent="." index="4"]
 target_position = Vector2(-50, 0)
 
+[node name="DmgPlayer" type="Area2D" parent="." index="5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DmgPlayer" index="0"]
+position = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_o1jkv")
+
 [connection signal="timeout" from="RayCast/RayTimer" to="." method="_on_ray_timer_timeout"]
+[connection signal="body_entered" from="DmgPlayer" to="." method="_on_dmg_player_body_entered"]
